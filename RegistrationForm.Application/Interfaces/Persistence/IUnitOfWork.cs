@@ -1,4 +1,5 @@
 ﻿namespace RegistrationForm.Application.Interfaces.Persistence;
-internal class IUnitOfWork
+public interface IUnitOfWork : IDisposable
 {
+    Task SaveChangesAsync();
 }
