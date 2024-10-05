@@ -1,0 +1,16 @@
+﻿using RegistrationForm.Domain.Common;
+
+namespace RegistrationForm.Domain.Entities;
+public class Address: BaseEntity<long>
+{
+    public long UserId { get; set; }
+    public long GovernateId { get; set; }
+    public long CityId { get; set; }
+    public int Street { get; set; }
+    public int BuildingNumber { get; set; }
+    public int FlatNumber { get; set; }
+
+    public AppUser? User { get; set; }
+    public Governate? Governate { get; set; }
+    public City? City { get; set; }
+}
