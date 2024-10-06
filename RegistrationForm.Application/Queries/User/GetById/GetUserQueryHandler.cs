@@ -4,8 +4,8 @@ using RegistrationForm.Application.Common.DTOs;
 using RegistrationForm.Application.Interfaces.Persistence;
 using RegistrationForm.Domain.Entities;
 
-namespace RegistrationForm.Application.Queries.User.GetUser;
-internal class GetUserQueryHandler : IRequestHandler<GetUserByIdQuery, GetUserByIdQueryResponse>
+namespace RegistrationForm.Application.Queries.User.GetById;
+internal class GetUserQueryHandler : IRequestHandler<GetUserByIdQuery, UserDto>
 {
     private readonly IReadRepository<AppUser, long> _userRepo;
     private readonly IMapper _mapper;
@@ -16,14 +16,10 @@ internal class GetUserQueryHandler : IRequestHandler<GetUserByIdQuery, GetUserBy
         _mapper = mapper;
     }
 
-    public async Task<GetUserByIdQueryResponse> Handle(GetUserByIdQuery request, CancellationToken cancellationToken)
+    public async Task<UserDto> Handle(GetUserByIdQuery request, CancellationToken cancellationToken)
     {
         var user = await _userRepo.FirstOrDefaultAsync(x => x.Id == request.Id);
 
-        return new GetUserByIdQueryResponse 
-        { 
-            IsSuccess= true,
-            User = _mapper.Map<UserDto>(user)
-        };
+        return _mapper.Map<UserDto>(user);
     }
 }
