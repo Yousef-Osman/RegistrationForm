@@ -1,0 +1,149 @@
+<section>
+    <div class="survey-header">
+        <div class="d-flex justify-content-center">
+            <div class="col-10 text-center">
+                <img src="/images/site/logo.png" alt="logo" class="cover-image" />
+                <h3 class="text-white mt-2">Registration Form</h3>
+            </div>
+        </div>
+    </div>
+    <div class="d-flex justify-content-center my-5">
+        <div class="card rounded-card border-0 shadow col-md-10 p-5">
+            <div class="">
+                <form asp-action="Submit" asp-controller="CustomerSurvey" method="post">
+                    <div class="container-fluid col-12">
+                        <h4 class="text-orange mb-3">Basic Info</h4>
+                        <div class="row justify-content-between">
+                            <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
+                                <div class="row g-3">
+                                    <div class="col-md-4">
+                                        <label for="firstName" class="form-label">First Name</label>
+                                        <input type="text" id="firstName" class="form-control" formControlName="firstName" />
+                                        <div class="text-danger"
+                                            *ngIf="userForm.get('firstName')?.invalid && (userForm.get('firstName')?.touched || userForm.get('firstName')?.dirty)">
+                                            <span *ngIf="userForm.get('firstName')?.errors?.['required']">First Name is required.</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label for="middleName" class="form-label">Middle Name</label>
+                                        <input id="middleName" class="form-control" formControlName="middleName" />
+                                    </div>
+                    
+                                    <div class="col-md-4">
+                                        <label for="lastName" class="form-label">Last Name</label>
+                                        <input id="lastName" class="form-control" formControlName="lastName" />
+                                        <div class="text-danger"
+                                            *ngIf="userForm.get('lastName')?.invalid && (userForm.get('lastName')?.touched || userForm.get('lastName')?.dirty)">
+                                            <small *ngIf="userForm.get('lastName')?.errors?.['required']">Last Name is required.</small>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label for="birthDate" class="form-label">Birth Date</label>
+                                        <input id="birthDate" type="date" class="form-control" formControlName="birthDate" />
+                                        <div class="text-danger"
+                                            *ngIf="userForm.get('birthDate')?.invalid && (userForm.get('birthDate')?.touched || userForm.get('birthDate')?.dirty)">
+                                            <small *ngIf="userForm.get('birthDate')?.errors?.['required']">Birth Date is
+                                                required.</small>
+                                        </div>
+                                    </div>
+                    
+                                    <div class="col-md-4">
+                                        <label for="mobileNumber" class="form-label">Mobile Number</label>
+                                        <input id="mobileNumber" class="form-control" formControlName="mobileNumber" />
+                                        <div class="text-danger"
+                                            *ngIf="userForm.get('mobileNumber')?.invalid && (userForm.get('mobileNumber')?.touched || userForm.get('mobileNumber')?.dirty)">
+                                            <small *ngIf="userForm.get('mobileNumber')?.errors?.['required']">Mobile Number is
+                                                required.</small>
+                                            <small *ngIf="userForm.get('mobileNumber')?.errors?.['pattern']">Only numbers are
+                                                allowed.</small>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label for="email" class="form-label">Email</label>
+                                        <input id="email" type="email" class="form-control" formControlName="email" />
+                                        <div class="text-danger"
+                                            *ngIf="userForm.get('email')?.invalid && (userForm.get('email')?.touched || userForm.get('email')?.dirty)">
+                                            <small *ngIf="userForm.get('email')?.errors?.['required']">Email is required.</small>
+                                            <small *ngIf="userForm.get('email')?.errors?.['email']">Invalid email format.</small>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12 mt-5 mb-2 d-flex justify-content-between align-items-center">
+                                    <h4 class="text-orange">Addresses</h4>
+                                    <button class="btn btn-success" (click)="addAddress()" type="button"><i class="bi bi-plus-lg"></i></button>
+                                </div>
+                                <div formArrayName="addresses">
+                                    <div *ngFor="let address of addresses.controls; let i=index" [formGroupName]="i"
+                                        class="border rounded p-3 my-3">
+                                        <div class="row g-3">
+                                            <div class="col-12 d-flex justify-content-between ">
+                                                <h5>Address {{ i + 1 }}</h5>
+                                                <button class="btn btn-outline-danger" (click)="removeAddress(i)" type="button"><i class="bi bi-trash-fill"></i></button>
+                                            </div>
+                    
+                                            <div class="col-md-6">
+                                                <label for="governateId-{{ i }}" class="form-label">Governate ID</label>
+
+                                                <select id="governateId-{{ i }}" class="form-select" formControlName="governateId">
+                                                    <option value="" disabled>Select Governate</option>
+                                                    <option *ngFor="let governate of governates" [value]="governate.id">{{ governate.name }}</option>
+                                                  </select>
+                                                  <div class="text-danger"
+                                                    *ngIf="address.get('governateId')?.invalid && (address.get('governateId')?.touched || address.get('governateId')?.dirty)">
+                                                    <span *ngIf="address.get('governateId')?.hasError('required')">Governate is
+                                                        required.</span>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label for="cityId-{{ i }}" class="form-label">City ID</label>
+
+                                                <select id="cityId-{{ i }}" class="form-select" formControlName="cityId">
+                                                    <option value="" disabled>Select City</option>
+                                                    <option *ngFor="let city of cities[i]" [value]="city.id">{{ city.name }}</option>
+                                                  </select>
+                                                <div class="text-danger"
+                                                    *ngIf="address.get('cityId')?.invalid && (address.get('cityId')?.touched || address.get('cityId')?.dirty)">
+                                                    <span *ngIf="address.get('cityId')?.hasError('required')">City is required.</span>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <label for="street-{{ i }}" class="form-label">Street</label>
+                                                <input id="street-{{ i }}" class="form-control" formControlName="street" />
+                                                <div class="text-danger"
+                                                    *ngIf="address.get('street')?.invalid && (address.get('street')?.touched || address.get('street')?.dirty)">
+                                                    <span *ngIf="address.get('street')?.hasError('required')">Street is required.</span>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <label for="buildingNumber-{{ i }}" class="form-label">Building Number</label>
+                                                <input id="buildingNumber-{{ i }}" class="form-control" formControlName="buildingNumber" />
+                                                <div class="text-danger"
+                                                    *ngIf="address.get('buildingNumber')?.invalid && (address.get('buildingNumber')?.touched || address.get('buildingNumber')?.dirty)">
+                                                    <span *ngIf="address.get('buildingNumber')?.hasError('required')">Building Number is
+                                                        required.</span>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <label for="flatNumber-{{ i }}" class="form-label">Flat Number</label>
+                                                <input id="flatNumber-{{ i }}" class="form-control" formControlName="flatNumber" />
+                                                <div class="text-danger"
+                                                    *ngIf="address.get('flatNumber')?.invalid && (address.get('flatNumber')?.touched || address.get('flatNumber')?.dirty)">
+                                                    <span *ngIf="address.get('flatNumber')?.hasError('required')">Flat Number is
+                                                        required.</span>
+                                                </div>
+                                            </div>
+                    
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="text-center">
+                                    <button class="btn btn-orange mt-4 px-5" type="submit" [disabled]="!userForm.valid">Submit</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>

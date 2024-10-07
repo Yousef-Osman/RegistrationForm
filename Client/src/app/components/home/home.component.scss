@@ -1,0 +1,16 @@
+section {
+    width: 100vw;
+    height: 100vh;
+    position: relative;
+    background-image: linear-gradient(rgba(0, 0, 0, 0.8),rgba(0, 0, 0, 0.8),rgba(0, 0, 0, 0.8),rgba(0, 0, 0, 0.8)),url('/images/site/home_bg.jpg');
+    background-size: cover;
+    background-position: 50% 25%;
+    background-position: center center;
+}
+
+.center-div {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}

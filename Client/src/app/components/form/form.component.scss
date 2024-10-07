@@ -1,0 +1,22 @@
+body{
+    background: #f6f9f9;
+}
+
+.survey-header {
+    padding-top: 30px;
+    padding-bottom: 30px;
+    background-image: linear-gradient(rgba(0, 0, 0, 0.8),rgba(0, 0, 0, 0.8),rgba(0, 0, 0, 0.8),rgba(0, 0, 0, 0.8)),url('/images/site/home_bg.jpg');
+    background-position: center center;
+    background-size: cover;
+    position: relative;
+}
+
+.cover-image {
+    height: 110px;
+}
+
+@media screen and (max-width:800px) {
+    .cover-image {
+        height: 80px;
+    }
+}
