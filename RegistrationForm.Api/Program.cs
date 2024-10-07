@@ -1,5 +1,7 @@
+using Microsoft.EntityFrameworkCore;
 using RegistrationForm.Application;
 using RegistrationForm.Infrastructure;
+using RegistrationForm.Persistence;
 using RegistrationForm.Persistence.Data;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -10,7 +12,8 @@ var builder = WebApplication.CreateBuilder(args);
 
     builder.Services
        .AddApplication()
-       .AddInfrastructure(builder.Configuration);
+       .AddInfrastructure()
+       .AddPersistence(builder.Configuration);
 
     var clientUrl = builder.Configuration.GetSection("ClientUrl").Value ?? string.Empty;
 
@@ -31,7 +34,19 @@ var app = builder.Build();
         app.UseSwaggerUI();
     }
 
-    await DataSeeder.SeedAsync(app.Services);
+    using var scope = app.Services.CreateScope();
+    var services = scope.ServiceProvider;
+    var context = services.GetRequiredService<AppDbContext>();
+    var logger = services.GetRequiredService<ILogger<Program>>();
+    try
+    {
+        await context.Database.MigrateAsync();
+        await DataSeeder.SeedAsync(context);
+    }
+    catch (Exception ex)
+    {
+        logger.LogError(ex, "An error occured during migration");
+    }
 
     app.UseHttpsRedirection();
 

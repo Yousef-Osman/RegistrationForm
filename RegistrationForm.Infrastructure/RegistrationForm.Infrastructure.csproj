@@ -7,7 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\RegistrationForm.Persistence\RegistrationForm.Persistence.csproj" />
+    <ProjectReference Include="..\RegistrationForm.Application\RegistrationForm.Application.csproj" />
   </ItemGroup>
 
 </Project>

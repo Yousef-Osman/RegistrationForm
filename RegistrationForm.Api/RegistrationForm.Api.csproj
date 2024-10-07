@@ -20,6 +20,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\RegistrationForm.Infrastructure\RegistrationForm.Infrastructure.csproj" />
+    <ProjectReference Include="..\RegistrationForm.Persistence\RegistrationForm.Persistence.csproj" />
   </ItemGroup>
 
 </Project>

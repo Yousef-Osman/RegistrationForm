@@ -1,15 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
 using RegistrationForm.Domain.Entities;
 
 namespace RegistrationForm.Persistence.Data;
 public static class DataSeeder
 {
-    public static async Task SeedAsync(IServiceProvider serviceProvider)
+    public static async Task SeedAsync(AppDbContext context)
     {
-        using var scope = serviceProvider.CreateScope();
-        var context = scope.ServiceProvider.GetRequiredService<AppDbContext>();
-
         await SeedGovernatesAndCities(context);
 
         if (context.ChangeTracker.HasChanges())

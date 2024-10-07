@@ -9,6 +9,7 @@ public class AppDbContext: DbContext
     public DbSet<Address> Addresses { get; set; }
     public DbSet<Governate> Governates { get; set; }
     public DbSet<City> Cities { get; set; }
+    public DbSet<GovernateResident> GovernateResidents { get; set; }
 
     public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
     {
@@ -19,5 +20,10 @@ public class AppDbContext: DbContext
         base.OnModelCreating(builder);
 
         builder.ApplyConfiguration(new UserConfiguration());
+
+        builder.Entity<Address>(entry =>
+        {
+            entry.ToTable("Addresses", tb => tb.HasTrigger("trg_ModifyGovernateResidentCount"));
+        });
     }
 }
