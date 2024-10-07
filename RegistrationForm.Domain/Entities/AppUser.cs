@@ -10,5 +10,5 @@ public class AppUser: BaseEntity<long>
     public required string MobileNumber { get; set; }
     public required string Email { get; set; }
 
-    IEnumerable<Address>? Addresses { get; set;}
+    public IEnumerable<Address>? Addresses { get; set;}
 }

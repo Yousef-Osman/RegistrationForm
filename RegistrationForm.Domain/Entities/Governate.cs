@@ -4,4 +4,5 @@ namespace RegistrationForm.Domain.Entities;
 public class Governate: BaseEntity<long>
 {
     public required string Name { get; set; }
+    public IEnumerable<City>? Cities { get; set; }
 }
