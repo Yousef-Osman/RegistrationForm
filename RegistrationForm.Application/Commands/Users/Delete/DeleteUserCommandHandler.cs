@@ -2,7 +2,7 @@
 using RegistrationForm.Application.Interfaces.Persistence;
 using RegistrationForm.Domain.Entities;
 
-namespace RegistrationForm.Application.Commands.User.Delete;
+namespace RegistrationForm.Application.Commands.Users.Delete;
 internal class DeleteUserCommandHandler : IRequestHandler<DeleteUserCommand, bool>
 {
     private readonly IRepository<AppUser, long> _userRepository;

@@ -8,5 +8,9 @@ internal class MappingProfile : Profile
     public MappingProfile()
     {
         CreateMap<AppUser, UserDto>().ReverseMap();
+        CreateMap<CreateAddressDto, Address>();
+        CreateMap<Address, AddressDto>().ReverseMap();
+        CreateMap<Governate, GovernateDto>().ReverseMap();
+        CreateMap<City, CityDto>().ReverseMap();
     }
 }

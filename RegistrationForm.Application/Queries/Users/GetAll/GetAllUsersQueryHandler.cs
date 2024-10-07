@@ -4,7 +4,7 @@ using RegistrationForm.Application.Common.DTOs;
 using RegistrationForm.Application.Interfaces.Persistence;
 using RegistrationForm.Domain.Entities;
 
-namespace RegistrationForm.Application.Queries.User.GetAll;
+namespace RegistrationForm.Application.Queries.Users.GetAll;
 internal class GetAllUsersQueryHandler : IRequestHandler<GetAllUsersQuery, IReadOnlyList<UserDto>>
 {
     private readonly IReadRepository<AppUser, long> _userRepo;

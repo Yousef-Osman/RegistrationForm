@@ -2,7 +2,7 @@
 using RegistrationForm.Application.Interfaces.Persistence;
 using RegistrationForm.Domain.Entities;
 
-namespace RegistrationForm.Application.Commands.User.Update;
+namespace RegistrationForm.Application.Commands.Users.Update;
 internal class UpdateUserCommandHandler : IRequestHandler<UpdateUserCommand, bool>
 {
     private readonly IRepository<AppUser, long> _userRepository;

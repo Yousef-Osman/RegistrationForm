@@ -9,5 +9,5 @@ public class UserDto
     public required string MobileNumber { get; set; }
     public required string Email { get; set; }
 
-    IEnumerable<AddressDto>? Addresses { get; set; }
+    public IEnumerable<CreateAddressDto>? Addresses { get; set; }
 }
