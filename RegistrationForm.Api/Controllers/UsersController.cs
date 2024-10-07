@@ -1,10 +1,12 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using RegistrationForm.Application.Commands.User.Create;
-using RegistrationForm.Application.Commands.User.Delete;
-using RegistrationForm.Application.Commands.User.Update;
-using RegistrationForm.Application.Queries.User.GetAll;
-using RegistrationForm.Application.Queries.User.GetById;
+using RegistrationForm.Application.Commands.Users.Create;
+using RegistrationForm.Application.Commands.Users.Delete;
+using RegistrationForm.Application.Commands.Users.Update;
+using RegistrationForm.Application.Queries.Cities.GetByGovernate;
+using RegistrationForm.Application.Queries.Governates.GetAll;
+using RegistrationForm.Application.Queries.Users.GetAll;
+using RegistrationForm.Application.Queries.Users.GetById;
 
 namespace RegistrationForm.Api.Controllers;
 [Route("api/[controller]")]
@@ -66,5 +68,23 @@ public class UsersController : ControllerBase
         await _mediator.Send(command);
 
         return NoContent();
+    }
+
+    [HttpGet("Governates")]
+    public async Task<IActionResult> GetGovernates()
+    {
+        var query = new GetAllGovernatesQuery();
+        var users = await _mediator.Send(query);
+
+        return Ok(users);
+    }
+
+    [HttpGet("Cities/{id}")]
+    public async Task<IActionResult> GetCities(long id)
+    {
+        var query = new GetCitiesByGovernateQuery { Id = id };
+        var users = await _mediator.Send(query);
+
+        return Ok(users);
     }
 }
